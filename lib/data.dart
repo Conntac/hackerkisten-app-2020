@@ -28,6 +28,7 @@ class data{
 
     var websiteData = WebsiteData();
     websiteData.barcamps = getBarcamps(document);
+
     return websiteData;
   }
 

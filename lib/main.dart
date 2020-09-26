@@ -2,7 +2,7 @@ import 'package:event_view/mainView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'models/Hackerkiste.dart';
+import 'hackerkisteContext.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     // SystemChrome.setEnabledSystemUIOverlays([]);
     
     // TODO: Replace with MultiProivder to have one state per model (barcamp, hackathon, etc..)
-    return ChangeNotifierProvider(create: (context) => Hackerkiste(),
+    return ChangeNotifierProvider(create: (context) => HackerkisteContext(),
     child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

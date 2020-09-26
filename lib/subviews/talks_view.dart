@@ -1,5 +1,5 @@
 import 'package:event_view/data.dart';
-import 'package:event_view/models/Hackerkiste.dart';
+import 'package:event_view/hackerkisteContext.dart';
 import 'package:event_view/models/Talk.dart';
 import 'package:event_view/subviews/subview.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +8,12 @@ import 'package:provider/provider.dart';
 class TalksMainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<Hackerkiste>(
+    return Consumer<HackerkisteContext>(
       builder: (context, hackerkiste, child) {
         return Container(color: Colors.red,
         child: Stack(
           children: [
-            Text("Number of talks: ${hackerkiste.getTalks().length}"),
+            Text("Number of barcamps: ${hackerkiste.getBarcamps().length}; still loading? ${hackerkiste.isLoading()}"),
             FlatButton(color: Colors.blue, onPressed: () => {
               hackerkiste.addTalk(Talk())
             }, child: Text("Add talk"))
