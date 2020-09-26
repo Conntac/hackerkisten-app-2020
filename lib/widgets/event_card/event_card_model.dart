@@ -4,12 +4,14 @@ class Event {
   String title;
   String desc;
   String imgUrl;
-  DateTime time;
-  String location;
   List<CardDescription> details;
+
+  Event(this.title, this.desc, this.imgUrl, this.details);
 }
 
 class CardDescription {
-  Icon icon;
+  IconData icon;
   String text;
+
+  CardDescription(this.icon, this.text);
 }

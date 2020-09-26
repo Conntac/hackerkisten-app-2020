@@ -27,11 +27,8 @@ class EventCard extends StatelessWidget {
     );
   }
 
-  List<StatelessWidget> _buildList() => [
-        _tile(event.details, Icons.info_outline, Colors.grey),
-        _tile(event.time.toString(), Icons.access_time, Colors.grey),
-        _tile(event.location, Icons.place, Colors.grey),
-      ];
+  List<StatelessWidget> _buildList() =>
+      event.details.map((e) => _tile(e.text, e.icon, Colors.grey)).toList();
 }
 
 ListTile _tile(String title, IconData icon, Color color) => ListTile(
