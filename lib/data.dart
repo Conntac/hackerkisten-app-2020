@@ -11,6 +11,8 @@ import 'models/Barcamp.dart'; // Contains DOM related classes for extracting dat
 
 class WebsiteData {
   List<Barcamp> barcamps;
+  List<Hackathon> hackathons;
+  List<Speaker> speakers;
 }
 
 class data{
@@ -23,11 +25,13 @@ class data{
     var document = parse(response.body);
 
     getSpeakers(document);
-    getBarcamps(document);
+    //getBarcamps(document);
     //getHackathons(document);
 
     var websiteData = WebsiteData();
     websiteData.barcamps = getBarcamps(document);
+    websiteData.speakers = getSpeakers(document);
+    websiteData.hackathons = getHackathons(document);
 
     return websiteData;
   }
@@ -133,7 +137,7 @@ class data{
         organizerCompany = organizerValues[1];
       }
       var infos = domHackathon.querySelector("div.open-sans").text;
-      
+
       print("'############");
       print(infos);
       print("'############");

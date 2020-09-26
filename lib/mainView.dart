@@ -25,9 +25,11 @@ class _MainViewState extends State<MainView> {
   ];
 
   Subview _currentSubview;
+  String _currentTitle;
 
   _MainViewState() {
     _currentSubview = _drawerItems.first.view;
+    _currentTitle = _drawerItems.first.title;
   }
 
   Widget _makeDrawerTile({BuildContext context, _DrawerItem drawerItem}) =>
@@ -38,6 +40,7 @@ class _MainViewState extends State<MainView> {
           Navigator.of(context).pop();
           setState(() {
             _currentSubview = drawerItem.view;
+            _currentTitle = drawerItem.title;
           });
         },
       );
@@ -48,7 +51,7 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Cool Event Viewer'),
+          title: Text(_currentTitle),
           actions: [
             IconButton(
               icon: Icon(Icons.bookmark_border),

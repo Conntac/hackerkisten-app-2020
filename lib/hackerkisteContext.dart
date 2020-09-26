@@ -1,7 +1,9 @@
 import 'package:event_view/models/Barcamp.dart';
+import 'package:event_view/models/Hackathon.dart';
 import 'package:flutter/foundation.dart';
 
 import 'data.dart';
+import 'models/Speaker.dart';
 import 'models/Talk.dart';
 
 class HackerkisteContext extends ChangeNotifier {
@@ -9,6 +11,8 @@ class HackerkisteContext extends ChangeNotifier {
 
   List<Talk> _talks = [];
   List<Barcamp> _barcamps = [];
+  List<Hackathon> _hackathons = [];
+  List<Speaker> _speakers = [];
 
   bool _loading;
 
@@ -20,6 +24,8 @@ class HackerkisteContext extends ChangeNotifier {
 
     _websiteScraper.initiate().then((websiteData) {
       this._barcamps = websiteData.barcamps;
+      this._hackathons = websiteData.hackathons;
+      this._speakers = websiteData.speakers;
 
       _loading = false;
       this.notifyListeners();
@@ -37,6 +43,10 @@ class HackerkisteContext extends ChangeNotifier {
 
   List<Barcamp> getBarcamps() {
     return _barcamps;
+  }
+
+  List<Speaker> getSpeakers() {
+    return _speakers;
   }
 
   bool isLoading() {
