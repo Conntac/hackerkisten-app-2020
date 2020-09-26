@@ -1,47 +1,44 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/*class EventCardWidget extends StatefulWidget {
-  @override
-  _EventCardWidgetState createState() => _EventCardWidgetState();
-}*/
-
 class EventCard extends StatelessWidget {
-
-  String title;
-  String desc;
+  final String title;
+  final String desc;
 
   EventCard(this.title, this.desc);
-
-  /*EventCard({
-    Key key,
-  }) : super(key: key);*/
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ListTile(
-            leading: Icon(Icons.album),
+        children: [
+          if (title == "Example Talk 1") // Debugging purposes only
+            Image.network(
+              'https://lh3.googleusercontent.com/VHB9bVB8cTcnqwnu0nJqKYbiutRclnbGxTpwnayKB4vMxZj8pk1220Rg-6oQ68DwAkqO',
+            ),
+          ExpansionTile(
+            childrenPadding: EdgeInsets.all(8.0),
+            initiallyExpanded: title == "Example Talk 1",
+            // Change this to first obj in array later
             title: Text(title),
             subtitle: Text(desc),
-          ),
-          ButtonBar(
-            children: <Widget>[
-              FlatButton(
-                child: const Text('Read more'),
-                onPressed: () {/* ... */},
-              ),
-              FlatButton(
-                child: const Text('Favorite'), //TODO: Change to star icon
-                onPressed: () {/* ... */},
-              ),
-            ],
+            children: _buildList(),
           ),
         ],
       ),
     );
   }
+
+  List<StatelessWidget> _buildList() => [
+        _tile("Snoopdog's house", Icons.info_outline, Colors.grey),
+        _tile('4:20', Icons.access_time, Colors.grey),
+        _tile("Snoopdog's house", Icons.place, Colors.grey),
+      ];
 }
+
+ListTile _tile(String title, IconData icon, Color color) => ListTile(
+      title: Text(title),
+      leading: Icon(
+        icon,
+        color: color,
+      ),
+    );
