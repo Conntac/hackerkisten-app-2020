@@ -1,3 +1,4 @@
+import 'package:event_view/data.dart';
 import 'package:event_view/models/Hackerkiste.dart';
 import 'package:event_view/models/Talk.dart';
 import 'package:event_view/subviews/subview.dart';

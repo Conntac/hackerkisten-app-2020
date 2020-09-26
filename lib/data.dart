@@ -1,22 +1,27 @@
 import 'dart:convert'; // Contains the JSON encoder
-import 'package:event_view/models/Barcamp.dart';
-import 'package:event_view/models/Hackathon.dart';
 import 'package:http/http.dart'; // Contains a client for making API calls
 import 'package:html/parser.dart'; // Contains HTML parsers to generate a Document object
 import 'package:html/dom.dart';
 
 import 'models/Speaker.dart'; // Contains DOM related classes for extracting data from elements
+import 'models/Hackathon.dart'; // Contains DOM related classes for extracting data from elements
+import 'models/Event.dart'; // Contains DOM related classes for extracting data from elements
+import 'models/Talk.dart'; // Contains DOM related classes for extracting data from elements
+import 'models/Barcamp.dart'; // Contains DOM related classes for extracting data from elements
+
+
 class data{
 
   Future initiate() async {
     var client = Client();
     Response response = await client.get('https://2020.hackerkiste.de');
+    // zeitplan #speaker .layout-three-images-text > .article-content > div
     // Use html parser
     var document = parse(response.body);
 
     getSpeakers(document);
-    getBarcamps(document);
-    getHackathons(document);
+    //getBarcamps(document);
+    //getHackathons(document);
   }
 
 
@@ -25,13 +30,17 @@ class data{
     List<Speaker> speakerList = [];
 
     for (var domSpeaker in domSpeakers) {
-      var img = domSpeaker.querySelector("img");
-      var name = domSpeaker.querySelector("h3 > font");
-      var organizerName = domSpeaker.querySelector(".open-sans:last > font");
-      var speaker = new Speaker();
-      speaker.name = name.innerHtml;
-      speaker.imageURL = img.attributes["src"];
-      speaker.organizerName = organizerName.innerHtml;
+      var imgUrl = domSpeaker.querySelector("img").attributes['data-src'];
+      var talkTitle = domSpeaker.querySelector("h3 font").innerHtml;
+      var talkDescription = domSpeaker.children[2].innerHtml;
+      var organizerElements = domSpeaker.children[3].querySelectorAll('font');
+      var organizer = "";
+      organizerElements.forEach((element) {
+        organizer += element.text;
+      });
+      var name = organizer.split(',')[0];
+      var company = organizer.replaceFirst(name + ',', '');
+      var speaker = Speaker(name, company, imgUrl, talkTitle, talkDescription);
       speakerList.add(speaker);
     }
     return speakerList;
