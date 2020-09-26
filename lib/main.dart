@@ -23,8 +23,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.amber,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: MainView(),
-        debugShowCheckedModeBanner: true
+        home: MainView()
       )
     );
   }
