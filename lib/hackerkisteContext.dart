@@ -41,6 +41,10 @@ class HackerkisteContext extends ChangeNotifier {
     return _talks;
   }
 
+  List<Hackathon> getHackathons() {
+    return _hackathons;
+  }
+
   List<Barcamp> getBarcamps() {
     return _barcamps;
   }
