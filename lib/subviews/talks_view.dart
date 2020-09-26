@@ -14,6 +14,7 @@ class TalksMainView extends StatelessWidget {
     description.add(new CardDescription(Icons.info_outline, "Test"));
     description.add(new CardDescription(Icons.access_time, "4:20"));
     description.add(new CardDescription(Icons.place, "Raum 01"));
+    var d = data();
     return ListView(
       padding: EdgeInsets.all(4.0),
       children: <Widget>[
@@ -26,8 +27,8 @@ class TalksMainView extends StatelessWidget {
                   description),
               i == 0),
         FlatButton(color: Colors.blue, onPressed: () => {
-          hackerkiste.addTalk(Talk())
-        }, child: Text("Add talk"))
+          d.initiate()
+        }, child: Text("Get all data"))
       ],
     );
   }
