@@ -64,23 +64,7 @@ class _MainViewState extends State<MainView> {
         drawer: Drawer(
           child: Column(
             children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Colors.amber, Colors.blue],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter)),
-                child: Align(
-                  child: Text(
-                    'Cool Event 2020',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300,
-                        fontSize: 32),
-                  ),
-                  alignment: Alignment.bottomLeft,
-                ),
-              ),
+              buildDrawerHeader(),
               ..._drawerItems.map((drawerItem) =>
                   _makeDrawerTile(context: context, drawerItem: drawerItem)),
               Expanded(
@@ -88,7 +72,7 @@ class _MainViewState extends State<MainView> {
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     child: Text(
-                      'Entstanden 2020 im Hackathon\nder Coolapp GmbH',
+                      'Entstanden 2020 im Hackathon\nder Conntac GmbH',
                       style: Theme.of(context).textTheme.caption.apply(
                           color: Theme.of(context)
                               .textTheme
@@ -111,5 +95,21 @@ class _MainViewState extends State<MainView> {
                   colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.05), BlendMode.dstATop),
                   image: AssetImage("assets/bg.png"), fit: BoxFit.cover)),
         ));
+  }
+
+  DrawerHeader buildDrawerHeader() {
+    return DrawerHeader(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: [Colors.amber, Colors.blue],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter)),
+      child: Center(
+        child: Image(
+          image: AssetImage('assets/hackerkiste_logo.png'),
+          fit: BoxFit.contain,
+        ),
+      ),
+    );
   }
 }
