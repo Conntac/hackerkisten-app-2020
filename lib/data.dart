@@ -56,20 +56,21 @@ class data{
       if (barcampsStarted == null) {
         if (domBarcamps[i].innerHtml.contains("BISHER EINGEREICHTE BARCAMPS")) {
           barcampsStarted = i + 1;
-        } else {
-          if (barcampsEnded != null && !domBarcamps[i].innerHtml.contains("Beschreibung")) {
-            barcampsEnded = i;
-          }
+        }
+      } else {
+        if (barcampsEnded == null && !domBarcamps[i].innerHtml.contains("Beschreibung")) {
+          barcampsEnded = i;
         }
       }
     }
 
-    for (var i = barcampsStarted; i <= barcampsEnded; i++) {
+    for (var i = barcampsStarted; i < barcampsEnded; i++) {
       var domBarcamp = domBarcamps[i];
       var format = domBarcamp.querySelector(".col-ten > h3");
-      var organizer = domBarcamp.querySelector(".col-ten > h5").innerHtml.substring(2);
+      var organizer = domBarcamp.querySelector(".col-ten > h5").innerHtml.substring(2).replaceAll("&nbsp;", " ");
       var id = domBarcamp.querySelector(".col-ten > h5").innerHtml.substring(1, 2);
       var organizerName = organizer.split(", ")[0];
+
       var organizerCompany = organizer.split(", ")[2];
       var barcamp = new Barcamp();
       barcamp.format = format.innerHtml;
@@ -91,10 +92,10 @@ class data{
       if (hackathonsStarted == null) {
         if (domHackathons[i].innerHtml.contains("BISHER EINGEREICHTE BARCAMPS")) {
           hackathonsStarted = i + 1;
-        } else {
-          if (hackathonsEnded != null && !domHackathons[i].innerHtml.contains("Beschreibung")) {
-            hackathonsEnded = i;
-          }
+        } 
+      } else {
+        if (hackathonsEnded == null && !domHackathons[i].innerHtml.contains("Beschreibung")) {
+          hackathonsEnded = i;
         }
       }
     }
