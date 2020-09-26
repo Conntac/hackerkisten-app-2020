@@ -59,12 +59,14 @@ class data{
       var domBarcamp = domBarcamps[i];
       var format = domBarcamp.querySelector(".col-ten > h3");
       var organizer = domBarcamp.querySelector(".col-ten > h5").innerHtml.substring(2);
+      var id = domBarcamp.querySelector(".col-ten > h5").innerHtml.substring(1, 2);
       var organizerName = organizer.split(", ")[0];
       var organizerCompany = organizer.split(", ")[2];
       var barcamp = new Barcamp();
       barcamp.format = format.innerHtml;
       barcamp.organizerCompany = organizerCompany;
       barcamp.organizerName = organizerName;
+      barcamp.id = int.parse(id);
       barcampList.add(barcamp);
     }
     return barcampList;

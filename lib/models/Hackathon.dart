@@ -1,6 +1,7 @@
 import 'Event.dart';
 
 class Hackathon extends Event{
+  int id;
   String scenario;
   String supervisor;
   String requirements;
