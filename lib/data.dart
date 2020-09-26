@@ -23,7 +23,7 @@ class data{
     var document = parse(response.body);
 
     getSpeakers(document);
-    //getBarcamps(document);
+    getBarcamps(document);
     //getHackathons(document);
 
     var websiteData = WebsiteData();
@@ -47,7 +47,9 @@ class data{
         organizer += element.text;
       });
       var name = organizer.split(',')[0];
-      var company = organizer.replaceFirst(name + ',', '');
+      String nbsp = DocumentFragment.html("&nbsp;").text;
+      var company = organizer.replaceAll(nbsp, " ");
+      company = company.replaceFirst(name + ", ", "");
       var speaker = Speaker(name, company, imgUrl, talkTitle, talkDescription);
       speakerList.add(speaker);
     }
@@ -57,6 +59,7 @@ class data{
   List<Barcamp> getBarcamps(doc) {
     List<Element> domBarcamps = doc.querySelectorAll('#zeitplan > .section-content > .sortable-article > article');
     List<Barcamp> barcampList = [];
+    String nbsp = DocumentFragment.html("&nbsp;").text;
 
     int barcampsStarted = null;
     int barcampsEnded = null;
@@ -74,18 +77,21 @@ class data{
 
     for (var i = barcampsStarted; i < barcampsEnded; i++) {
       var domBarcamp = domBarcamps[i];
-      var format = domBarcamp.querySelector(".col-ten > h3");
+      var title = domBarcamp.querySelector(".col-ten > h3");
       var organizer = domBarcamp.querySelector(".col-ten > h5").innerHtml.substring(2).replaceAll("&nbsp;", " ");
       var id = domBarcamp.querySelector(".col-ten > h5").innerHtml.substring(1, 2);
       var organizerName = organizer.split(", ")[0];
-
+      organizerName = organizerName.replaceFirst(" ", "");
       var organizerCompany = organizer.split(", ")[2];
+      organizerCompany = organizerCompany.replaceAll(nbsp, "");
+      organizerCompany = organizerCompany.replaceAll("</span>", "");
       var barcamp = new Barcamp();
-      barcamp.format = format.innerHtml;
-      barcamp.organizerCompany = organizerCompany;
-      barcamp.organizerName = organizerName;
-      barcamp.id = int.parse(id);
-      barcampList.add(barcamp);
+      print("#######################");
+      print(title.text);
+      print(organizerCompany);
+      print(organizerName);
+      print(int.parse(id));
+      print("#######################");
     }
     return barcampList;
   }
@@ -98,7 +104,7 @@ class data{
     int hackathonsEnded = null;
     for (var i = 0; i < domHackathons.length; i++) {
       if (hackathonsStarted == null) {
-        if (domHackathons[i].innerHtml.contains("BISHER EINGEREICHTE BARCAMPS")) {
+        if (domHackathons[i].innerHtml.contains("BISHER EINGEREICHTE HACKATHONS")) {
           hackathonsStarted = i + 1;
         } 
       } else {
@@ -107,16 +113,33 @@ class data{
         }
       }
     }
-
-    for (var i = hackathonsStarted; i <= hackathonsEnded; i++) {
-      var domBarcamp = domHackathons[i];
-      var format = domBarcamp.querySelector(".col-ten > h3");
-      var organizer = domBarcamp.querySelector(".col-ten > h5").innerHtml.substring(2);
-      var organizerName = organizer.split(", ")[0];
-      var organizerCompany = organizer.split(", ")[2];
-      var hackathon = new Hackathon();
+    for (var i = hackathonsStarted; i < hackathonsEnded; i++) {
+      var domHackathon = domHackathons[i];
+      var title = domHackathon.querySelector(".col-ten > h3");
+      RegExp exp = new RegExp(r"#(\d+)");
+      var headline = domHackathon.querySelector(".col-ten > h5").text;
+      var id = exp.firstMatch(headline);
+      var organizer = headline.substring(2);
+      String nbsp = DocumentFragment.html("&nbsp;").text;
+      organizer = organizer.replaceAll(nbsp, " ");
+      var organizerValues = organizer.split(", ");
+      var organizerName = organizerValues[0];
+      var organizerRole = "";
+      var organizerCompany = "";
+      if (organizerValues.length == 3) {
+        organizerRole = organizerValues[1];
+        organizerCompany = organizerValues[2];
+      } else {
+        organizerCompany = organizerValues[1];
+      }
+      var infos = domHackathon.querySelector("div.open-sans").text;
+      
+      print("'############");
+      print(infos);
+      print("'############");
+      //var hackathon = new Hackathon(id, sc);
       //TODO FILL
-      hackathonList.add(hackathon);
+      //hackathonList.add(hackathon);
     }
     return hackathonList;
   }
