@@ -1,7 +1,11 @@
+import 'package:event_view/data.dart';
+import 'package:event_view/hackerkisteContext.dart';
+import 'package:event_view/models/Talk.dart';
 import 'package:event_view/subviews/subview.dart';
 import 'package:event_view/widgets/event_card/event_card_view.dart';
 import 'package:event_view/widgets/event_card/event_card_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TalksMainView extends StatelessWidget {
   @override
@@ -10,6 +14,7 @@ class TalksMainView extends StatelessWidget {
     description.add(new CardDescription(Icons.info_outline, "Test"));
     description.add(new CardDescription(Icons.access_time, "4:20"));
     description.add(new CardDescription(Icons.place, "Raum 01"));
+    var d = data();
     return ListView(
       padding: EdgeInsets.all(4.0),
       children: <Widget>[
@@ -25,6 +30,9 @@ class TalksMainView extends StatelessWidget {
               "09:00 - 10:00",
               "Raum 1",
               i == 0),
+        FlatButton(color: Colors.blue, onPressed: () => {
+          d.initiate()
+        }, child: Text("Get all data"))
       ],
     );
   }
