@@ -4,9 +4,9 @@ class Event {
   String title;
   String desc;
   String imgUrl;
-  List<CardDescription> details;
+  //List<CardDescription> details;
 
-  Event(this.title, this.desc, this.imgUrl, this.details);
+  Event(this.title, this.desc, this.imgUrl);
 }
 
 class CardDescription {
