@@ -11,7 +11,7 @@ class FavoriteButton extends StatefulWidget {
 }
 
 class _FavoriteButtonState extends State<FavoriteButton> {
-  bool saved = true;
+  bool saved = false;
   final String id;
 
   _FavoriteButtonState(this.id) {
