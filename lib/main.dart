@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     // enable fullscreen
     // SystemChrome.setEnabledSystemUIOverlays([]);
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Hackerkiste Augsburg',
         theme: ThemeData(
           primarySwatch: Colors.amber,
           visualDensity: VisualDensity.adaptivePlatformDensity,
