@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'favorite_button.dart';
+
 class EventCard extends StatelessWidget {
   final String title;
   final String desc;
@@ -21,6 +23,7 @@ class EventCard extends StatelessWidget {
             // Change this to first obj in array later
             title: Text(title),
             subtitle: Text(desc),
+            leading: FavoriteButton(title),
             children: _buildList(),
           ),
         ],
@@ -42,3 +45,4 @@ ListTile _tile(String title, IconData icon, Color color) => ListTile(
         color: color,
       ),
     );
+
