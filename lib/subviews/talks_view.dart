@@ -7,8 +7,14 @@ class TalksMainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       padding: EdgeInsets.all(4.0),
-        children: <Widget>[
-          for(int i = 0; i < 6; i++) EventCard("Example Talk ${i + 1}", "I like trains"),
+      children: <Widget>[
+        for (int i = 0; i < 6; i++)
+          EventCard(
+              "Example Talk ${i + 1}",
+              "I like trains",
+              'https://lh3.googleusercontent.com/VHB9bVB8cTcnqwnu0nJqKYbiutRclnbGxTpwnayKB4vMxZj8pk1220Rg-6oQ68DwAkqO',
+              i == 0),
+        EventCard("Event without image", "I like trains", null, false),
       ],
     );
   }
