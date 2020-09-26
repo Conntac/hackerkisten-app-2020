@@ -1,4 +1,5 @@
 import 'package:event_view/subviews/barcamp_view.dart';
+import 'package:event_view/subviews/dashboard_view.dart';
 import 'package:event_view/subviews/hackathon_view.dart';
 import 'package:event_view/subviews/subview.dart';
 import 'package:event_view/subviews/talks_view.dart';
@@ -19,15 +20,18 @@ class _DrawerItem {
 
 class _MainViewState extends State<MainView> {
   final _drawerItems = [
+    _DrawerItem("Menu", Icons.dashboard, DashboardView()),
     _DrawerItem("Talks", Icons.person, TalksView()),
     _DrawerItem("Hackathons", Icons.computer, HackathonView()),
     _DrawerItem("Barcamps", Icons.local_bar, BarcampView())
   ];
 
   Subview _currentSubview;
+  String _currentTitle;
 
   _MainViewState() {
     _currentSubview = _drawerItems.first.view;
+    _currentTitle = _drawerItems.first.title;
   }
 
   Widget _makeDrawerTile({BuildContext context, _DrawerItem drawerItem}) =>
@@ -38,6 +42,7 @@ class _MainViewState extends State<MainView> {
           Navigator.of(context).pop();
           setState(() {
             _currentSubview = drawerItem.view;
+            _currentTitle = drawerItem.title;
           });
         },
       );
@@ -48,7 +53,7 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Cool Event Viewer'),
+          title: Text(_currentTitle),
           actions: [
             IconButton(
               icon: Icon(Icons.bookmark_border),
@@ -59,23 +64,7 @@ class _MainViewState extends State<MainView> {
         drawer: Drawer(
           child: Column(
             children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [Colors.amber, Colors.blue],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter)),
-                child: Align(
-                  child: Text(
-                    'Cool Event 2020',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300,
-                        fontSize: 32),
-                  ),
-                  alignment: Alignment.bottomLeft,
-                ),
-              ),
+              buildDrawerHeader(),
               ..._drawerItems.map((drawerItem) =>
                   _makeDrawerTile(context: context, drawerItem: drawerItem)),
               Expanded(
@@ -83,7 +72,7 @@ class _MainViewState extends State<MainView> {
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     child: Text(
-                      'Entstanden 2020 im Hackathon\nder Coolapp GmbH',
+                      'Entstanden 2020 im Hackathon\nder Conntac GmbH',
                       style: Theme.of(context).textTheme.caption.apply(
                           color: Theme.of(context)
                               .textTheme
@@ -99,6 +88,28 @@ class _MainViewState extends State<MainView> {
             ],
           ),
         ),
-        body: _currentMainView);
+        body: Container(
+          child: _currentMainView,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.05), BlendMode.dstATop),
+                  image: AssetImage("assets/bg.png"), fit: BoxFit.cover)),
+        ));
+  }
+
+  DrawerHeader buildDrawerHeader() {
+    return DrawerHeader(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: [Colors.amber, Colors.blue],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter)),
+      child: Center(
+        child: Image(
+          image: AssetImage('assets/hackerkiste_logo.png'),
+          fit: BoxFit.contain,
+        ),
+      ),
+    );
   }
 }
