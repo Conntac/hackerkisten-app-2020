@@ -10,11 +10,6 @@ import 'package:provider/provider.dart';
 class TalksMainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<CardDescription> description = new List<CardDescription>();
-    description.add(new CardDescription(Icons.info_outline, "Test"));
-    description.add(new CardDescription(Icons.access_time, "4:20"));
-    description.add(new CardDescription(Icons.place, "Raum 01"));
-    var d = data();
     return ListView(
       padding: EdgeInsets.all(4.0),
       children: <Widget>[
