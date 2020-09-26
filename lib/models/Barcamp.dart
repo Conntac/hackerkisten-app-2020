@@ -8,5 +8,7 @@ class Barcamp extends Event{
   String format;
   String organizerName;
   String organizerCompany;
-  String organizerRole;
+
+  Barcamp(this.id, this.title, this.description, this.format,
+      this.organizerName, this.organizerCompany);
 }

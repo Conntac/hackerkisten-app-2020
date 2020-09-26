@@ -24,10 +24,6 @@ class data{
     // Use html parser
     var document = parse(response.body);
 
-    getSpeakers(document);
-    //getBarcamps(document);
-    //getHackathons(document);
-
     var websiteData = WebsiteData();
     websiteData.barcamps = getBarcamps(document);
     websiteData.speakers = getSpeakers(document);
@@ -81,21 +77,21 @@ class data{
 
     for (var i = barcampsStarted; i < barcampsEnded; i++) {
       var domBarcamp = domBarcamps[i];
-      var title = domBarcamp.querySelector(".col-ten > h3");
+      var title = domBarcamp.querySelector(".col-ten > h3").text;
       var organizer = domBarcamp.querySelector(".col-ten > h5").innerHtml.substring(2).replaceAll("&nbsp;", " ");
-      var id = domBarcamp.querySelector(".col-ten > h5").innerHtml.substring(1, 2);
+      var id = int.parse(domBarcamp.querySelector(".col-ten > h5").innerHtml.substring(1, 2));
       var organizerName = organizer.split(", ")[0];
       organizerName = organizerName.replaceFirst(" ", "");
       var organizerCompany = organizer.split(", ")[2];
       organizerCompany = organizerCompany.replaceAll(nbsp, "");
       organizerCompany = organizerCompany.replaceAll("</span>", "");
-      var barcamp = new Barcamp();
-      print("#######################");
-      print(title.text);
-      print(organizerCompany);
-      print(organizerName);
-      print(int.parse(id));
-      print("#######################");
+
+      var infos = domBarcamp.querySelector("div.open-sans").text;
+      RegExp exp = new RegExp(r"Beschreibung:(.+)Format:(.+)");
+      var description = exp.allMatches(infos).map((e) => e.group(1)).toList()[0];
+      var format = exp.allMatches(infos).map((e) => e.group(2)).toList()[0];
+      var barcamp = new Barcamp(id, title, description, format, organizerName, organizerCompany);
+      barcampList.add(barcamp);
     }
     return barcampList;
   }
@@ -103,6 +99,7 @@ class data{
   List<Hackathon> getHackathons(doc) {
     List<Element> domHackathons = doc.querySelectorAll('#zeitplan > .section-content > .sortable-article > article');
     List<Hackathon> hackathonList = [];
+    RegExp exp1 = new RegExp(r"Beschreibung:(.+?)(Szenario\/Aufgabe:|Szenario:)(.+?)(Betreuung:(.+?))?(Gestellt werden:(.+?))?Voraussetzung:(.+?)Schwierigkeitsgrad:(.+)");
 
     int hackathonsStarted = null;
     int hackathonsEnded = null;
@@ -120,9 +117,9 @@ class data{
     for (var i = hackathonsStarted; i < hackathonsEnded; i++) {
       var domHackathon = domHackathons[i];
       var title = domHackathon.querySelector(".col-ten > h3");
-      RegExp exp = new RegExp(r"#(\d+)");
+      RegExp exp2 = new RegExp(r"#(\d+)");
       var headline = domHackathon.querySelector(".col-ten > h5").text;
-      var id = exp.firstMatch(headline);
+      var id = int.parse(exp2.firstMatch(headline).group(1));
       var organizer = headline.substring(2);
       String nbsp = DocumentFragment.html("&nbsp;").text;
       organizer = organizer.replaceAll(nbsp, " ");
@@ -136,14 +133,16 @@ class data{
       } else {
         organizerCompany = organizerValues[1];
       }
-      var infos = domHackathon.querySelector("div.open-sans").text;
 
-      print("'############");
-      print(infos);
-      print("'############");
-      //var hackathon = new Hackathon(id, sc);
-      //TODO FILL
-      //hackathonList.add(hackathon);
+      var infos = domHackathon.querySelector("div.open-sans").text;
+      var description = exp1.allMatches(infos).map((e) => e.group(1)).toList()[0];
+      var scenario = exp1.allMatches(infos).map((e) => e.group(3)).toList()[0];
+      var delivered = exp1.allMatches(infos).map((e) => e.group(7)).toList()[0];
+      var supervisor = exp1.allMatches(infos).map((e) => e.group(5)).toList()[0];
+      var requirements = exp1.allMatches(infos).map((e) => e.group(8)).toList()[0];
+      var difficulty = exp1.allMatches(infos).map((e) => e.group(9)).toList()[0];
+      var hackathon = new Hackathon(id, scenario, supervisor, requirements, difficulty, delivered, organizerName, organizerCompany, organizerRole);
+      hackathonList.add(hackathon);
     }
     return hackathonList;
   }
