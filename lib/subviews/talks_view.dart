@@ -25,9 +25,6 @@ class TalksMainView extends StatelessWidget {
               "09:00 - 10:00",
               "Raum 1",
               i == 0),
-        FlatButton(color: Colors.blue, onPressed: () => {
-          d.initiate()
-        }, child: Text("Get all data"))
       ],
     );
   }
