@@ -14,11 +14,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // enable fullscreen
     // SystemChrome.setEnabledSystemUIOverlays([]);
-    
+
     // TODO: Replace with MultiProivder to have one state per model (barcamp, hackathon, etc..)
     return ChangeNotifierProvider(create: (context) => HackerkisteContext(),
     child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Hackerkiste Augsburg',
         theme: ThemeData(
           primarySwatch: Colors.amber,
           visualDensity: VisualDensity.adaptivePlatformDensity,

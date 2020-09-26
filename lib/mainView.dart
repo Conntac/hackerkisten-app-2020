@@ -1,4 +1,5 @@
 import 'package:event_view/subviews/barcamp_view.dart';
+import 'package:event_view/subviews/dashboard_view.dart';
 import 'package:event_view/subviews/hackathon_view.dart';
 import 'package:event_view/subviews/subview.dart';
 import 'package:event_view/subviews/talks_view.dart';
@@ -19,6 +20,7 @@ class _DrawerItem {
 
 class _MainViewState extends State<MainView> {
   final _drawerItems = [
+    _DrawerItem("Menu", Icons.dashboard, DashboardView()),
     _DrawerItem("Talks", Icons.person, TalksView()),
     _DrawerItem("Hackathons", Icons.computer, HackathonView()),
     _DrawerItem("Barcamps", Icons.local_bar, BarcampView())
@@ -86,7 +88,13 @@ class _MainViewState extends State<MainView> {
             ],
           ),
         ),
-        body: _currentMainView);
+        body: Container(
+          child: _currentMainView,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.05), BlendMode.dstATop),
+                  image: AssetImage("assets/bg.png"), fit: BoxFit.cover)),
+        ));
   }
 
   DrawerHeader buildDrawerHeader() {

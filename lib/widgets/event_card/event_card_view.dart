@@ -12,18 +12,18 @@ class EventCard extends StatelessWidget {
   EventCard.presentation(this.event, String speakerName, String organization,
       String time, String room, this.expanded) {
     details
-        .add(new CardDescription(Icons.account_circle_outlined, speakerName));
-    details.add(new CardDescription(Icons.add_business_outlined, organization));
-    details.add(new CardDescription(Icons.access_alarm_outlined, time));
-    details.add(new CardDescription(Icons.place_outlined, room));
+        .add(new CardDescription(Icons.account_circle, speakerName));
+    details.add(new CardDescription(Icons.business, organization));
+    details.add(new CardDescription(Icons.access_alarm, time));
+    details.add(new CardDescription(Icons.place, room));
   }
 
   EventCard.hackerton(this.event, String contactPerson, String organization,
       String room, this.expanded) {
     details
-        .add(new CardDescription(Icons.account_circle_outlined, contactPerson));
-    details.add(new CardDescription(Icons.add_business_outlined, organization));
-    details.add(new CardDescription(Icons.place_outlined, room));
+        .add(new CardDescription(Icons.account_circle, contactPerson));
+    details.add(new CardDescription(Icons.business, organization));
+    details.add(new CardDescription(Icons.place, room));
   }
 
   @override
