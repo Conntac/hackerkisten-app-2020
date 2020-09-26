@@ -1,10 +1,16 @@
 import 'package:event_view/subviews/subview.dart';
+import 'package:event_view/widgets/event_card.dart';
 import 'package:flutter/material.dart';
 
 class TalksMainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.red);
+    return ListView(
+      padding: EdgeInsets.all(4.0),
+        children: <Widget>[
+          for(int i = 0; i < 6; i++) EventCard("Example Talk ${i + 1}", "I like trains"),
+      ],
+    );
   }
 }
 
