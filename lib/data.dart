@@ -9,6 +9,9 @@ import 'models/Event.dart'; // Contains DOM related classes for extracting data 
 import 'models/Talk.dart'; // Contains DOM related classes for extracting data from elements
 import 'models/Barcamp.dart'; // Contains DOM related classes for extracting data from elements
 
+class WebsiteData {
+  List<Barcamp> barcamps;
+}
 
 class data{
 
@@ -22,6 +25,10 @@ class data{
     getSpeakers(document);
     //getBarcamps(document);
     //getHackathons(document);
+
+    var websiteData = WebsiteData();
+    websiteData.barcamps = getBarcamps(document);
+    return websiteData;
   }
 
 
