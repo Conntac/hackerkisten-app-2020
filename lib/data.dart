@@ -88,8 +88,10 @@ class data{
 
       var infos = domBarcamp.querySelector("div.open-sans").text;
       RegExp exp = new RegExp(r"Beschreibung:(.+)Format:(.+)");
-      var description = exp.allMatches(infos).map((e) => e.group(1)).toList()[0];
-      var format = exp.allMatches(infos).map((e) => e.group(2)).toList()[0];
+      var desList = exp.allMatches(infos).map((e) => e.group(1)).toList();
+      var description = desList.length > 0 ? desList[0] : "des";
+      var formatList = exp.allMatches(infos).map((e) => e.group(2)).toList();
+      var format = formatList.length > 0 ? formatList[0] : "format";
       var barcamp = new Barcamp(id, title, description, format, organizerName, organizerCompany);
       barcampList.add(barcamp);
     }
@@ -135,12 +137,25 @@ class data{
       }
 
       var infos = domHackathon.querySelector("div.open-sans").text;
-      var description = exp1.allMatches(infos).map((e) => e.group(1)).toList()[0];
-      var scenario = exp1.allMatches(infos).map((e) => e.group(3)).toList()[0];
-      var delivered = exp1.allMatches(infos).map((e) => e.group(7)).toList()[0];
-      var supervisor = exp1.allMatches(infos).map((e) => e.group(5)).toList()[0];
-      var requirements = exp1.allMatches(infos).map((e) => e.group(8)).toList()[0];
-      var difficulty = exp1.allMatches(infos).map((e) => e.group(9)).toList()[0];
+
+      var descriptionList = exp1.allMatches(infos).map((e) => e.group(1)).toList();
+      var description = descriptionList.length > 0 ? descriptionList[0] : "";
+
+      var scenarioList = exp1.allMatches(infos).map((e) => e.group(3)).toList();
+      var scenario = scenarioList.length > 0 ? scenarioList[0] : "";
+
+      var deliveredList = exp1.allMatches(infos).map((e) => e.group(7)).toList();
+      var delivered = descriptionList.length > 0 ? deliveredList[0] : "";
+
+      var supervisorList = exp1.allMatches(infos).map((e) => e.group(5)).toList();
+      var supervisor = supervisorList.length > 0 ? supervisorList[0] : "";
+
+      var requirementsList = exp1.allMatches(infos).map((e) => e.group(8)).toList();
+      var requirements = requirementsList.length > 0 ? requirementsList[0] : "";
+
+      var difficultyList = exp1.allMatches(infos).map((e) => e.group(9)).toList();
+      var difficulty = difficultyList.length > 0 ? difficultyList[0] : "";
+
       var hackathon = new Hackathon(id, scenario, supervisor, requirements, difficulty, delivered, organizerName, organizerCompany, organizerRole);
       hackathonList.add(hackathon);
     }

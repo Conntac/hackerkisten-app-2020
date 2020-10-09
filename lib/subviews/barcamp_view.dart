@@ -15,14 +15,14 @@ class BarcampMainView extends StatelessWidget {
                 for (var item in hackerkiste.getBarcamps())
                   EventCard.presentation(
                       new Event(
-                        item.title,
-                        item.description,
+                        item.title ?? "",
+                        item.description ?? "",
                         "",
                       ),
-                      item.organizerName,
-                      item.organizerCompany,
-                      "${item.start.hour}:${item.start.minute} - ${item.end.hour}:${item.end.minute}",
-                      item.room,
+                      item.organizerName ?? "",
+                      item.organizerCompany ?? "",
+                      /*"${item.start.hour}:${item.start.minute} - ${item.end.hour}:${item.end.minute}"*/ "Date",
+                      item.room ?? "",
                       false),
               ],
             ));
