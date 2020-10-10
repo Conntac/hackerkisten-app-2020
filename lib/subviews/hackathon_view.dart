@@ -2,11 +2,14 @@ import 'package:event_view/subviews/subview.dart';
 import 'package:event_view/widgets/event_card/event_card_model.dart';
 import 'package:event_view/widgets/event_card/event_card_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../hackerkisteContext.dart';
 
 class HackathonMainView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    /*return ListView(
       padding: EdgeInsets.all(4.0),
       children: <Widget>[
         for (int i = 0; i < 6; i++)
@@ -21,7 +24,24 @@ class HackathonMainView extends StatelessWidget {
               "Raum 1",
               i == 0),
       ],
-    );
+    );*/
+    return Consumer<HackerkisteContext>(
+        builder: (context, hackerkiste, child) => ListView(
+          padding: EdgeInsets.all(4.0),
+          children: <Widget>[
+            for (var item in hackerkiste.getHackathons())
+              EventCard.hackerton(
+                  new Event(
+                    item.title ?? "",
+                    item.description ?? "",
+                    "",
+                  ),
+                  item.organizerCompany ?? "",
+                  item.organizerName ?? "",
+                  item.room ?? "",
+                  false),
+          ],
+        ));
   }
 }
 

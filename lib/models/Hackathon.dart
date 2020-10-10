@@ -20,5 +20,8 @@ class Hackathon extends Event{
       this.supplied,
       this.organizerName,
       this.organizerCompany,
-      this.organizerRole);
+      this.organizerRole,
+      String title) {
+    this.title = title;
+  }
 }

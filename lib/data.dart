@@ -118,7 +118,7 @@ class data{
     }
     for (var i = hackathonsStarted; i < hackathonsEnded; i++) {
       var domHackathon = domHackathons[i];
-      var title = domHackathon.querySelector(".col-ten > h3");
+      var titleElment = domHackathon.querySelector(".col-ten > h3");
       RegExp exp2 = new RegExp(r"#(\d+)");
       var headline = domHackathon.querySelector(".col-ten > h5").text;
       var id = int.parse(exp2.firstMatch(headline).group(1));
@@ -135,6 +135,8 @@ class data{
       } else {
         organizerCompany = organizerValues[1];
       }
+
+      var title = titleElment.text;
 
       var infos = domHackathon.querySelector("div.open-sans").text;
 
@@ -156,7 +158,7 @@ class data{
       var difficultyList = exp1.allMatches(infos).map((e) => e.group(9)).toList();
       var difficulty = difficultyList.length > 0 ? difficultyList[0] : "";
 
-      var hackathon = new Hackathon(id, scenario, supervisor, requirements, difficulty, delivered, organizerName, organizerCompany, organizerRole);
+      var hackathon = new Hackathon(id, scenario, supervisor, requirements, difficulty, delivered, organizerName, organizerCompany, organizerRole, title);
       hackathonList.add(hackathon);
     }
     return hackathonList;
